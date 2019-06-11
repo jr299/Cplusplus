@@ -11,6 +11,9 @@
 
 using namespace std;
 
+#define SMAX 100
+#define NFILE "save.txt"
+
 struct Student
 {
 	int id;
@@ -19,25 +22,25 @@ struct Student
 };
 typedef struct Student student;
 
-vector<Student> lstudent;
-
-void printMenu();
-
-Student inputStudent();
-
-void displayLStudents(vector<Student> lstudent);
-
-void processMode(int choose);
-
-void saveToFile(string fileName);
-
-void loadFromFile(string fileName);
-
-void replace(string &str, char to, char by);
-
 int choose;
 
-void printMenu()
+Student *lstudent = new Student[SMAX];
+Student *pstudent = lstudent;
+
+void PrintMenu();
+bool isRepeat(int ms);
+void InputStudent();
+void DisplayInfStudent(Student student);
+void DisplayStudent();
+void SaveToFile(string fileName);
+void LoadFromFile(string fileName);
+void Replace(string &str, char to, char by);
+void ProcessMode(int);
+
+
+int len = sizeof(lstudent) / sizeof(lstudent[0]);
+
+void PrintMenu()
 {
 	cout << "------------------MENU------------------" << endl;
 	cout << "    1. Input" << endl;
@@ -49,11 +52,16 @@ void printMenu()
 	cout << "Choose: ";
 }
 
-bool isRepeat(vector<Student> lstudent, int ms)
+int IDStudent(Student student)
 {
-	for (int i = 0; i < lstudent.size(); i++)
+	return student.id;
+}
+
+bool isRepeat(int ms)
+{
+	for (int i = 0; i < len - 1; i++)
 	{
-		if (ms == lstudent[i].id)
+		if (ms == IDStudent(lstudent[i]))
 		{
 			return true;
 		}
@@ -61,26 +69,27 @@ bool isRepeat(vector<Student> lstudent, int ms)
 	return false;
 }
 
-Student inputStudent()
+void InputStudent()
 {
-	Student student;
+	pstudent = &lstudent[len++];
+
 	int ms;
 	do {
 		cout << "ID: ";
 		cin >> ms;
-		if (isRepeat(lstudent, ms))
+		if (isRepeat(ms))
 		{
 			cout << "ID you input already exist! Please input again!" << endl;
 		}
 		else
 		{
-			student.id = ms;
+			pstudent->id = ms;
 		}
-	} while (isRepeat(lstudent, ms));
+	} while (isRepeat(ms));
 
 	cin.ignore();
 	cout << "Name: ";
-	getline(cin, student.name);
+	getline(cin, pstudent->name);
 
 	float d;
 	do {
@@ -93,52 +102,51 @@ Student inputStudent()
 		}
 		else
 		{
-			student.score = d;
+			pstudent->score = d;
 		}
 	} while (d < 0.0 || d > 10.0);
-
-	return student;
 }
 
-void displayInfStudent(Student student)
+void DisplayInfStudent(Student student)
 {
 	cout << left << setw(10) << student.id << "|" << setw(15) << student.name << "|" << setw(6) << student.score << "||";
 	cout << "\n";
 	cout << "||----|----------|---------------|------||" << endl;
 }
 
-void displayLStudents(vector<Student> lstudent)
+void DisplayStudent()
 {
-	cout << "DANH SACH TAT CA CAC SINH VIEN" << endl;
+	cout << "List of all student" << endl;
 	cout << "__________________________________________" << endl;
 	cout << left << "||" << setw(4) << "STT" << "|" << setw(10) << "ID" << "|" << setw(15) << "Name" << "|" << setw(6) << "Score" << "||" << "\n";
 	cout << "||====|==========|===============|======||" << endl;
-	for (int i = 0; i < lstudent.size(); i++)
+	for (int i = 0; i < len; i++)
 	{
 		cout << "||" << setw(4) << i + 1 << "|";
-		displayInfStudent(lstudent[i]);
+		DisplayInfStudent(lstudent[i]);
 	}
 }
 
-void saveToFile(string fileName)
+void SaveToFile(string fileName)
 {
 	ofstream outFile;
 	outFile.open(fileName);
 	if (outFile.is_open())
 	{
-		//save number element
-		outFile << lstudent.size() << endl;
-
-		for (int i = 0; i < lstudent.size(); i++)
+		//save number
+		outFile << len << endl;
+		
+		for (int i = 0; i < len; i++)
 		{
-			Student st = lstudent.at(i);
+			pstudent = &lstudent[i];
 
-			string name(st.name);
+			string name(pstudent->name);
+			Replace(name, ' ', '_');
 
-			replace(name, ' ', '_');
 
-			outFile << st.id << " " << name << " " << st.score << endl;
+			outFile << pstudent->id << " " << name << " " << pstudent->score << endl;
 		}
+
 		outFile.close();
 	}
 	else
@@ -147,41 +155,38 @@ void saveToFile(string fileName)
 	}
 }
 
-void loadFromFile(string fileName)
+void LoadFromFile(string fileName)
 {
-	lstudent.clear();
-
 	ifstream inFile;
 	inFile.open(fileName);
 
 	if (inFile.is_open())
 	{
-		int num;
 
-		inFile >> num;
+		inFile >> len;
 
-		for (int i = 0; i < num; i++)
+		for (int i = 0; i < len; i++)
 		{
-			Student st;
+			pstudent = &lstudent[i];
+			inFile >> (pstudent)->id;
 
-			inFile >> st.id;
-			inFile >> st.name;
-			inFile >> st.score;
+			string name;
+			inFile >> name;
+			Replace(name, '_', ' ');
+			(pstudent)->name = name;
 
-			replace(st.name, '_', ' ');
-
-			lstudent.push_back(st);
+			inFile >> (pstudent)->score;
 		}
-		inFile.close();
 
+		inFile.close();
 	}
 	else
 	{
-		cout << "can't open file!" << endl;
+		cout << "Can't open file!" << endl;
 	}
 }
 
-void replace(string &str, char to, char by)
+void Replace(string &str, char to, char by)
 {
 	for (int i = 0; i < str.length(); i++)
 	{
@@ -192,25 +197,30 @@ void replace(string &str, char to, char by)
 	}
 }
 
-void processMode(int)
+void ProcessMode(int)
 {
-	Student student;
 	switch (choose)
 	{
 	case 1:
-		student = inputStudent();
-		lstudent.push_back(student);
+		InputStudent();
 		break;
 	case 2:
-		displayLStudents(lstudent);
+		DisplayStudent();
 		break;
 	case 3:
-		saveToFile("save.txt");
+		SaveToFile(NFILE);
 		cout << "File is saved!" << endl;
 		break;
 	case 4:
-		loadFromFile("save.txt");
+		LoadFromFile(NFILE);
 		cout << "File is loaded!" << endl;
+		DisplayStudent();
+		break;
+	case 0:
+		cout << "Goodbye!" << endl;
+		break;
+	default:
+		cout << "Mode isn't available!" << endl;
 		break;
 	}
 }
@@ -220,21 +230,20 @@ int main()
 	while (true)
 	{
 		//Print menu
-		printMenu();
+		PrintMenu();
 
 		//Input mode
 		cin >> choose;
-		fflush(stdin);
 
 		//Process mode
-		processMode(choose);
+		ProcessMode(choose);
 
 		if (choose == 0)
 		{
 			break;
 		}
-	}
 
+	}
 	system("pause");
 	return 0;
 }
