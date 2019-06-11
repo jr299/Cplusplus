@@ -156,11 +156,11 @@ void processMode(int)
 		displayLStudents(lstudent);
 		break;
 	case 3:
-		saveToFile("studentmanagement.txt", lstudent);
+		saveToFile("liststudent.txt", lstudent);
 		cout << "File is saved!" << endl;
 		break;
 	case 4:
-		loadFile("studentmanagement.txt", lstudent);
+		loadFile("liststudent.txt", lstudent);
 		cout << "File is loaded!" << endl;
 		break;
 	}
