@@ -37,18 +37,22 @@ void printMenu()
 Student inputStudent()
 {
 	Student student;
-	//clean buffer
-	//fflush(stdin);
 
 	cout << "ID: ";
 	cin >> student.id;
+	//clean buffer
+	fflush(stdin);
 
 	cin.ignore();
 	cout << "Name: ";
 	getline(cin, student.name);
+	//clean buffer
+	fflush(stdin);
 
 	cout << "Score: ";
 	cin >> student.score;
+	//clean buffer
+	fflush(stdin);
 
 	return student;
 }
@@ -103,9 +107,40 @@ void saveToFile(string filename, vector<Student> lstudent)
 
 }
 
-void loadFile(string filename, vector<Student> &lstudent)
+void loadInfStudent(ifstream &filein, Student student)
 {
+	string id = "id";
+	string name = "name";
+	string score = "score";
+	getline(filein, id, ':');
+	filein >> student.id;
+	getline(filein, name, ':');
+	getline(filein, student.name, ',');
+	getline(filein, score, ':');
+	filein >> student.score;
+}
 
+void loadFile(string filename, vector<Student> lstudent)
+{
+	lstudent.clear();
+
+	ifstream filein;
+	filein.open(filename);
+	if (filein.is_open())
+	{
+		while (filein.eof() == false)
+		{
+			string temp;
+			Student student;
+			loadInfStudent(filein, student);
+			getline(filein, temp);
+			lstudent.push_back(student);
+		}
+	}
+	else
+	{
+		cout << "Can't open file !" << endl;
+	}
 }
 
 void processMode(int)

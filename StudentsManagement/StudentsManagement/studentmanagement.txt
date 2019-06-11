@@ -1,4 +1,4 @@
   DANH SACH TAT CA CAC SINH VIEN  
 ==================================
-id:102150155,name:Ho Van Duc,score:9
-id:102150156,name:Nguyen Van Huy,score:7.5
+id:102150155,name:Ho Van Duc,score:6
+id:102150156,name:Ngo Hai Hue,score:6
