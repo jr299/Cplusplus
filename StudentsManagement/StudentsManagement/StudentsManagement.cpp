@@ -20,6 +20,21 @@ struct Student
 typedef struct Student student;
 
 vector<Student> lstudent;
+
+void printMenu();
+
+Student inputStudent();
+
+void displayLStudents(vector<Student> lstudent);
+
+void processMode(int choose);
+
+void saveToFile(string fileName);
+
+void loadFromFile(string fileName);
+
+void replace(string &str, char to, char by);
+
 int choose;
 
 void printMenu()
@@ -34,21 +49,53 @@ void printMenu()
 	cout << "Choose: ";
 }
 
+bool isRepeat(vector<Student> lstudent, int ms)
+{
+	for (int i = 0; i < lstudent.size(); i++)
+	{
+		if (ms == lstudent[i].id)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 Student inputStudent()
 {
 	Student student;
-	//clean buffer
-	//fflush(stdin);
-
-	cout << "ID: ";
-	cin >> student.id;
+	int ms;
+	do {
+		cout << "ID: ";
+		cin >> ms;
+		if (isRepeat(lstudent, ms))
+		{
+			cout << "ID you input already exist! Please input again!" << endl;
+		}
+		else
+		{
+			student.id = ms;
+		}
+	} while (isRepeat(lstudent, ms));
 
 	cin.ignore();
 	cout << "Name: ";
 	getline(cin, student.name);
 
-	cout << "Score: ";
-	cin >> student.score;
+	float d;
+	do {
+		cout << "Score: ";
+		cin >> d;
+
+		if (d < 0.0 || d > 10.0)
+		{
+			cout << "You input wrong! Please input again!" << endl;
+		}
+		else
+		{
+			student.score = d;
+		}
+	} while (d < 0.0 || d > 10.0);
 
 	return student;
 }
@@ -73,39 +120,76 @@ void displayLStudents(vector<Student> lstudent)
 	}
 }
 
-void saveInfStudent(ofstream &fileout, Student student)
+void saveToFile(string fileName)
 {
-	string id = "id";
-	string name = "name";
-	string score = "score";
-	fileout << id << ":" << student.id << "," << name << ":" << student.name << "," << score << ":" << student.score << endl;
-}
-
-void saveToFile(string filename, vector<Student> lstudent)
-{
-	ofstream fileout;
-	fileout.open(filename);
-	if (fileout.is_open())
+	ofstream outFile;
+	outFile.open(fileName);
+	if (outFile.is_open())
 	{
-		fileout << "  DANH SACH TAT CA CAC SINH VIEN  " << endl;
-		fileout << "==================================" << endl;
+		//save number element
+		outFile << lstudent.size() << endl;
 
 		for (int i = 0; i < lstudent.size(); i++)
 		{
-			saveInfStudent(fileout, lstudent[i]);
+			Student st = lstudent.at(i);
+
+			string name(st.name);
+
+			replace(name, ' ', '_');
+
+			outFile << st.id << " " << name << " " << st.score << endl;
 		}
-		fileout.close();
+		outFile.close();
 	}
 	else
 	{
-		cout << "Can't open file !" << endl;
+		cout << "Can't open file!" << endl;
 	}
-
 }
 
-void loadFile(string filename, vector<Student> &lstudent)
+void loadFromFile(string fileName)
 {
+	lstudent.clear();
 
+	ifstream inFile;
+	inFile.open(fileName);
+
+	if (inFile.is_open())
+	{
+		int num;
+
+		inFile >> num;
+
+		for (int i = 0; i < num; i++)
+		{
+			Student st;
+
+			inFile >> st.id;
+			inFile >> st.name;
+			inFile >> st.score;
+
+			replace(st.name, '_', ' ');
+
+			lstudent.push_back(st);
+		}
+		inFile.close();
+
+	}
+	else
+	{
+		cout << "can't open file!" << endl;
+	}
+}
+
+void replace(string &str, char to, char by)
+{
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str.at(i) == to)
+		{
+			str.at(i) = by;
+		}
+	}
 }
 
 void processMode(int)
@@ -121,11 +205,11 @@ void processMode(int)
 		displayLStudents(lstudent);
 		break;
 	case 3:
-		saveToFile("studentmanagement.txt", lstudent);
+		saveToFile("save.txt");
 		cout << "File is saved!" << endl;
 		break;
 	case 4:
-		loadFile("studentmanagement.txt", lstudent);
+		loadFromFile("save.txt");
 		cout << "File is loaded!" << endl;
 		break;
 	}
@@ -152,6 +236,5 @@ int main()
 	}
 
 	system("pause");
-    return 0;
+	return 0;
 }
-
