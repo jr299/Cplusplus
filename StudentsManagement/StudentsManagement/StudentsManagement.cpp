@@ -20,6 +20,7 @@ struct Student
 typedef struct Student student;
 
 vector<Student> lstudent;
+
 int choose;
 
 void printMenu()
@@ -34,26 +35,54 @@ void printMenu()
 	cout << "Choose: ";
 }
 
-Student inputStudent()
+bool isRepeat(vector<Student> lstudent, int ms)
+{
+	for (int i = 0; i < lstudent.size(); i++)
+	{
+		if (ms == lstudent[i].id)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+Student inputStudent(vector<Student> lstudent)
 {
 	Student student;
-
-	cout << "ID: ";
-	cin >> student.id;
-	//clean buffer
-	fflush(stdin);
-
+	int ms;
+	do {
+		cout << "ID: ";
+		cin >> ms;
+		if (isRepeat(lstudent, ms))
+		{
+			cout << "ID you input already exist! Please input again!" << endl;
+		}
+		else
+		{
+			student.id = ms;
+		}
+	} while (isRepeat(lstudent, ms));
+	
 	cin.ignore();
 	cout << "Name: ";
 	getline(cin, student.name);
-	//clean buffer
-	fflush(stdin);
+	
+	float d;
+	do {
+		cout << "Score: ";
+		cin >> d;
 
-	cout << "Score: ";
-	cin >> student.score;
-	//clean buffer
-	fflush(stdin);
-
+		if (d < 0.0 || d > 10.0)
+		{
+			cout << "You input wrong! Please input again!" << endl;
+		}
+		else
+		{
+			student.score = d;
+		}
+	} while (d < 0.0 || d > 10.0);
+	
 	return student;
 }
 
@@ -149,7 +178,7 @@ void processMode(int)
 	switch (choose)
 	{
 	case 1:
-		student = inputStudent();
+		student = inputStudent(lstudent);
 		lstudent.push_back(student);
 		break;
 	case 2:
