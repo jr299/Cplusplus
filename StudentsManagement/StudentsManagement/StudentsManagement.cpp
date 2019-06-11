@@ -78,7 +78,7 @@ void saveInfStudent(ofstream &fileout, Student student)
 	string id = "id";
 	string name = "name";
 	string score = "score";
-	fileout << id << ":" << student.id << "," << student.score 
+	fileout << id << ":" << student.id << "," << name << ":" << student.name << "," << score << ":" << student.score << endl;
 }
 
 void saveToFile(string filename, vector<Student> lstudent)
@@ -103,6 +103,11 @@ void saveToFile(string filename, vector<Student> lstudent)
 
 }
 
+void loadFile(string filename, vector<Student> &lstudent)
+{
+
+}
+
 void processMode(int)
 {
 	Student student;
@@ -117,6 +122,12 @@ void processMode(int)
 		break;
 	case 3:
 		saveToFile("studentmanagement.txt", lstudent);
+		cout << "File is saved!" << endl;
+		break;
+	case 4:
+		loadFile("studentmanagement.txt", lstudent);
+		cout << "File is loaded!" << endl;
+		break;
 	}
 }
 
