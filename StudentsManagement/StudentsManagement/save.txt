@@ -1,7 +1,8 @@
-6
+7
 102150155 Ho_Van_Duc 9
 102150144 Ngo_Hai_Hue 7.5
 102150154 Tran_Hai_Ha 6.5
-102150174 Ngo_Hai_Hoi 7.0
-102150184 Nguyen_Hai_Hung 3.0
+102150174 Ngo_Hai_Hoi 7
+102150184 Nguyen_Hai_Hung 3
 102150194 Ho_Hai_He 5.5
+102140144 Ngo_Thi_Huong 5.5

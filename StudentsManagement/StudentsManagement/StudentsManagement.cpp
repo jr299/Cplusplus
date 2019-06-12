@@ -28,7 +28,7 @@ Student *lstudent = new Student[SMAX];
 Student *pstudent = lstudent;
 
 void PrintMenu();
-bool isRepeat(int ms);
+bool IsRepeat(int ms);
 void InputStudent();
 void DisplayInfStudent(Student student);
 void DisplayStudent();
@@ -57,7 +57,7 @@ int IDStudent(Student student)
 	return student.id;
 }
 
-bool isRepeat(int ms)
+bool IsRepeat(int ms)
 {
 	for (int i = 0; i < len - 1; i++)
 	{
@@ -77,7 +77,7 @@ void InputStudent()
 	do {
 		cout << "ID: ";
 		cin >> ms;
-		if (isRepeat(ms))
+		if (IsRepeat(ms))
 		{
 			cout << "ID you input already exist! Please input again!" << endl;
 		}
@@ -85,7 +85,7 @@ void InputStudent()
 		{
 			pstudent->id = ms;
 		}
-	} while (isRepeat(ms));
+	} while (IsRepeat(ms));
 
 	cin.ignore();
 	cout << "Name: ";
@@ -240,6 +240,8 @@ int main()
 
 		if (choose == 0)
 		{
+			delete[] lstudent;
+
 			break;
 		}
 
