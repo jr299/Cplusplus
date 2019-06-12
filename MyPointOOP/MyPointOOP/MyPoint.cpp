@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MyPoint.h"
 #include <math.h>
+#include <string>
+#include <iostream>
 
 
 MyPoint::MyPoint()
@@ -48,5 +50,5 @@ float MyPoint::Distance(MyPoint &p)
 
 MyPoint::~MyPoint()
 {
-	
+	std::cout << "Destructor" ;
 }

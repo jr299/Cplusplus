@@ -22,6 +22,11 @@ int main()
 
 	cout << "Distance between current point and p1: " << p0->Distance(*p1) << endl;
 
+	delete p0;
+	cout << " p0" << endl;
+	delete p1;
+	cout << " p1" << endl;
+
 	system("pause");
     return 0;
 }
