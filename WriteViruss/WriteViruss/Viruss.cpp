@@ -4,9 +4,11 @@
 
 using namespace std;
 
-//Viruss::Viruss()
-//{
-//}
+Viruss::Viruss()
+{
+	this->m_dna = NULL;
+	this->m_resistance = 0;
+}
 
 Viruss::Viruss(char *dna, int resistance)
 {

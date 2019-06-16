@@ -7,6 +7,13 @@ using namespace std;
 int bl = 0x0000ff;
 int red = 0xff0000;
 
+FluViruss::FluViruss()
+{
+	this->m_color = 0x000000;
+	this->m_dna = NULL;
+	this->m_resistance = 0;
+}
+
 FluViruss::FluViruss(int color, char * dna, int resistance) : Viruss(dna, resistance)
 {
 	DoBorn();
@@ -15,7 +22,18 @@ FluViruss::FluViruss(int color, char * dna, int resistance) : Viruss(dna, resist
 
 FluViruss::~FluViruss()
 {
+	DoDie();
 	cout << "Destroy Flu Virus" << endl;
+}
+
+void FluViruss::SetColor(int color)
+{
+	this->m_color = color;
+}
+
+int FluViruss::GetColor()
+{
+	return this->m_color;
 }
 
 void FluViruss::DoBorn()
@@ -34,6 +52,17 @@ void FluViruss::DoBorn()
 	{
 		this->m_color = red;
 	}
+}
+
+Viruss FluViruss::DoClone()
+{
+	FluViruss *vr = new FluViruss();
+
+	vr->m_color = this->m_color;
+	vr->m_dna = this->m_dna;
+	vr->m_resistance = this->m_resistance;
+
+	return vr;
 }
 
 void FluViruss::DoDie()

@@ -3,7 +3,7 @@
 class Viruss
 {
 public:
-	//Viruss();
+	Viruss();
 	Viruss(char *dna, int resistance);
 	virtual ~Viruss();
 	//~Viruss();

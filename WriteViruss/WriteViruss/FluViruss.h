@@ -7,9 +7,11 @@ private:
 	int m_color;
 
 public:
-	//FluViruss();
+	FluViruss();
 	FluViruss(int color, char *dna, int resistance);
 	~FluViruss();
+	void SetColor(int color);
+	int GetColor();
 	void DoBorn();
 	Viruss DoClone();
 	void DoDie();
