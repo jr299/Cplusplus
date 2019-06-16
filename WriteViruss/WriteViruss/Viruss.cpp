@@ -17,8 +17,10 @@ Viruss::Viruss(char *dna, int resistance)
 }
 
 
-Viruss::Viruss(Viruss * viruss)
+Viruss::Viruss(const Viruss * viruss)
 {
+	this->m_dna = viruss->m_dna;
+	this->m_resistance = viruss->m_resistance;
 }
 
 char * Viruss::LoadADNInformation()
