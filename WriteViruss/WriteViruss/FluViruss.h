@@ -13,7 +13,7 @@ public:
 	void SetColor(int color);
 	int GetColor();
 	void DoBorn();
-	Viruss DoClone();
+	Viruss* DoClone();
 	void DoDie();
 	int InitResistance();
 };

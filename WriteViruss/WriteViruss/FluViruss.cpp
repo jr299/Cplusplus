@@ -44,7 +44,7 @@ void FluViruss::DoBorn()
 	int max = 1;
 	int ran = rand() % (max - min + 1) + min;
 
-	if (ran = 0)
+	if (ran == 0)
 	{
 		this->m_color = bl;
 	}
@@ -54,11 +54,10 @@ void FluViruss::DoBorn()
 	}
 }
 
-Viruss FluViruss::DoClone()
+Viruss* FluViruss::DoClone()
 {
-	FluViruss *vr = new FluViruss();
+	Viruss *vr = new FluViruss();
 
-	vr->m_color = this->m_color;
 	vr->m_dna = this->m_dna;
 	vr->m_resistance = this->m_resistance;
 

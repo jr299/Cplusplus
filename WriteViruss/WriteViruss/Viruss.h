@@ -18,7 +18,7 @@ public:
 
 protected:
 	virtual void DoBorn();
-	virtual Viruss DoClone();
+	virtual Viruss* DoClone();
 	virtual void DoDie();
 	virtual int InitResistance();
 };
