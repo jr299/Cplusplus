@@ -9,7 +9,7 @@
 #include<string>
 
 using namespace std;
-#define SMAP 3
+#define SMAP 10
 #define SNAME 20
 //SMAP: Kich thuoc cua map
 //SNAME: Kich thuoc cua ten nguoi choi

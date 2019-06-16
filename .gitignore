@@ -10,7 +10,7 @@
 *.sln.docstates
 
 # Text file
-StudentsManagement/save.txt
+*.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
