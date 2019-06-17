@@ -13,8 +13,9 @@ public:
 	//~Viruss();
 	//Viruss(const Viruss &viruss);
 	Viruss(const Viruss *viruss);
-	char *LoadADNInformation();
+	void LoadADNInformation();
 	int ReduceResistance(int medicine_resistance);
+	int GetResistance();
 	
 public:
 	char *m_dna;

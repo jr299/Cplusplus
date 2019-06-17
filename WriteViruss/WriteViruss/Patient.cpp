@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Patient.h"
 #include <cstdlib>
 #include <ctime>
@@ -48,20 +48,39 @@ void Patient::DoStart()
 		{
 			Viruss *fvr = new FluViruss();
 			this->m_virusList.push_back(fvr);
-			cout << "Flu virus " << i << endl;
+			cout << "==> Flu virus " << i + 1 << endl;
+			cout << "----------------------------------" << endl;
 		}
 		if (typevirus == 1)
 		{
 			Viruss *dvr = new DengueViruss();
 			this->m_virusList.push_back(dvr);
-			cout << "Dengue virus " << i << endl;
+			cout << "==> Dengue virus " << i + 1 << endl;
+			cout << "----------------------------------" << endl;
 		}
 	}
 }
 
 void Patient::TakeMedicine(int medicine_resistance)
 {
-	list<Viruss*>::iterator ind;
+	auto member_virusList = this->m_virusList.begin();
+	int size = this->m_virusList.size();
+	for (int i = 0; i < size; i++)
+	{
+		if ((*member_virusList)->ReduceResistance(medicine_resistance) <= 0)
+		{
+			(*member_virusList)->DoDie();
+			this->m_virusList.erase(member_virusList++);
+		}
+		else
+		{
+			list<Viruss*> virusclone = (*member_virusList)->DoClone();
+			this->m_virusList.insert(this->m_virusList.end(), virusclone.begin(), virusclone.end());
+			member_virusList++;
+		}
+	}
+
+	/*list<Viruss*>::iterator ind;
 	for (ind = m_virusList.begin(); ind != m_virusList.end(); ind++)
 	{
 		(*ind)->ReduceResistance(medicine_resistance);
@@ -84,8 +103,18 @@ void Patient::TakeMedicine(int medicine_resistance)
 	if (this->m_resistance < sum)
 	{
 		DoDie();
-	}
-
+	}*/
+	//int sumresistence = 0;
+	//auto member_virusList = this->m_virusList.begin();	// khai báo con trỏ trỏ đến vị trí đầu list
+	//for (int i = 0; i < this->m_virusList.size(); i++)
+	//{
+	//	sumresistence += (*member_virusList)->GetResistance();
+	//	member_virusList++;
+	//}
+	//if (this->m_resistance < sumresistence)
+	//{
+	//	DoDie();
+	//}
 }
 
 void Patient::DoDie()

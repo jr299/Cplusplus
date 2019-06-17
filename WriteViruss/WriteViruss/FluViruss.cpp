@@ -47,19 +47,21 @@ int FluViruss::GetColor()
 
 void FluViruss::DoBorn()
 {
-	this->m_dna = LoadADNInformation();
-
+	LoadADNInformation();
+	cout << "ADN: " << this->m_dna << endl;
 	int min = 0;
 	int max = 1;
 	int ran = rand() % (max - min + 1) + min;
-
+	cout << "COLOR: ";
 	if (ran == 0)
 	{
 		this->m_color = bl;
+		cout << "Blue" << endl;
 	}
 	else
 	{
 		this->m_color = red;
+		cout << "Blue" << endl;
 	}
 }
 
@@ -82,15 +84,15 @@ int FluViruss::InitResistance()
 
 	if (this->m_color == bl)
 	{
-		cout << "Blue ";
 		int max = 15;
 		this->m_resistance = rand() % (max - min + 1) + min;
+		cout << "RESISTANCE (10-15): " << this->m_resistance << endl;
 	}
 	else if (this->m_color == red)
 	{
-		cout << "Red ";
 		int max = 20;
 		this->m_resistance = rand() % (max - min + 1) + min;
+		cout << "RESISTANCE (10-20): " << this->m_resistance << endl;
 	}
 	else
 	{

@@ -24,7 +24,7 @@ Viruss::Viruss(const Viruss * viruss)
 	this->m_resistance = viruss->m_resistance;
 }
 
-char * Viruss::LoadADNInformation()
+void Viruss::LoadADNInformation()
 {
 	this->m_dna = NULL;
 	ifstream inFile;
@@ -32,25 +32,28 @@ char * Viruss::LoadADNInformation()
 
 	if (inFile.is_open())
 	{
-		char a[100];
-		inFile >> a;
-		this->m_dna = (char *)a;
+		char *c = new char [100];
+		inFile >> c;
+		this->m_dna = (char *)c;
 
-		cout << "Load success: " << this->m_dna << endl;
+		cout << "Load ADN success!" << endl;
 	}
 	else
 	{
 		cout << "Load error!" << endl;
 	}
 	inFile.close();
-
-	return this->m_dna;
 }
 
 int Viruss::ReduceResistance(int medicine_resistance)
 {
 	this->m_resistance = this->m_resistance - medicine_resistance;
 	
+	return this->m_resistance;
+}
+
+int Viruss::GetResistance()
+{
 	return this->m_resistance;
 }
 

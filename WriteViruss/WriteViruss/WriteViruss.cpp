@@ -16,14 +16,18 @@ int main()
 	int t;
 	while (p->GetState() == 1)
 	{
-		cout<<"Take Medicine (0 = No, 1 = YES";
+		cout<<"Take Medicine (1: YES / OTHER: EXIT): ";
 		cin >> t;
 		if (t == 1)
 		{
 			int min = 1;
 			int max = 60;
-			int medicine_resistance = min + (rand() % (int)(max - min + 1));
+			int medicine_resistance = rand() % (max - min + 1) + min;
 			p->TakeMedicine(medicine_resistance);
+		}
+		else
+		{
+			break;
 		}
 	}
 	system("pause");
