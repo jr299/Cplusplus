@@ -14,13 +14,10 @@ private:
 	int m_state;
 
 public:
-	static int medicine_resistance;
-
-public:
 	Patient();
 	Patient(int, list <Viruss *>, int);
 	~Patient();
-	int InitResistance();
+	void InitResistance();
 	void DoStart();
 	void TakeMedicine(int medicine_resistance);
 	void DoDie();

@@ -49,11 +49,10 @@ void FluViruss::DoBorn()
 {
 	LoadADNInformation();
 	cout << "ADN: " << this->m_dna << endl;
-	int min = 0;
-	int max = 1;
-	int ran = rand() % (max - min + 1) + min;
+
+	int ran = rand() % 2 + 1;
 	cout << "COLOR: ";
-	if (ran == 0)
+	if (ran == 1)
 	{
 		this->m_color = bl;
 		cout << "Blue" << endl;
@@ -61,7 +60,7 @@ void FluViruss::DoBorn()
 	else
 	{
 		this->m_color = red;
-		cout << "Blue" << endl;
+		cout << "Red" << endl;
 	}
 }
 
@@ -70,11 +69,13 @@ list<Viruss*> FluViruss::DoClone()
 	list<Viruss*> vrclone;
 	Viruss *vr = new FluViruss(this);
 	vrclone.push_back(vr);
+	cout << "==> Clone Flu Virus" << endl;
 	return vrclone;
 }
 
 void FluViruss::DoDie()
 {
+	cout << "==> Flu Virus die" << endl;
 	delete this;
 }
 

@@ -20,9 +20,7 @@ int main()
 		cin >> t;
 		if (t == 1)
 		{
-			int min = 1;
-			int max = 60;
-			int medicine_resistance = rand() % (max - min + 1) + min;
+			int medicine_resistance = rand() % 60 + 1;
 			p->TakeMedicine(medicine_resistance);
 		}
 		else
@@ -30,6 +28,8 @@ int main()
 			break;
 		}
 	}
+	delete p;
+	p = NULL;
 	system("pause");
     return 0;
 }

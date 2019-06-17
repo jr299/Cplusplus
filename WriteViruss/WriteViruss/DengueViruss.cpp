@@ -81,12 +81,15 @@ list<Viruss*> DengueViruss::DoClone()
 	Viruss *vr1 = new DengueViruss(this);
 	Viruss *vr2 = new DengueViruss(this);
 	vrclone.push_back(vr1);
+	cout << "==> Clone Dengue Virus" << endl;
 	vrclone.push_back(vr2);
+	cout << "==> Clone Dengue Virus" << endl;
 	return vrclone;
 }
 
 void DengueViruss::DoDie()
 {
+	cout << "==> Dengue Virus die" << endl;
 	delete this;
 }
 

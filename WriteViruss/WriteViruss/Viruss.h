@@ -10,8 +10,6 @@ public:
 	Viruss();
 	Viruss(char *dna, int resistance);
 	virtual ~Viruss();
-	//~Viruss();
-	//Viruss(const Viruss &viruss);
 	Viruss(const Viruss *viruss);
 	void LoadADNInformation();
 	int ReduceResistance(int medicine_resistance);

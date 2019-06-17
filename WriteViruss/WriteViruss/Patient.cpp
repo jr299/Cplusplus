@@ -9,12 +9,10 @@
 
 using namespace std;
 
-int Patient::medicine_resistance = rand() % 60 + 1;
-
 Patient::Patient()
 {
+	InitResistance();
 	DoStart();
-	this->m_state = 1;
 }
 
 Patient::Patient(int resistance, list<Viruss*> viruslist, int state)
@@ -27,19 +25,20 @@ Patient::Patient(int resistance, list<Viruss*> viruslist, int state)
 
 Patient::~Patient()
 {
-	cout << "Patien was die" << endl;
+	cout << "Destroy Patient" << endl;
 }
 
-int Patient::InitResistance()
+void Patient::InitResistance()
 {
-	int min = 1000;
-	int max = 9000;
-	return this->m_resistance = rand() % (max - min + 1) + min;
+	this->m_resistance = rand() % 8001 + 1000;
 }
 
 void Patient::DoStart()
 {
+	
+	this->m_state = 1;
 	int numvirus = rand() % 11 + 10;
+
 	for (int i = 0; i < numvirus; i++)
 	{
 		int typevirus = rand() % 2;
@@ -63,64 +62,68 @@ void Patient::DoStart()
 
 void Patient::TakeMedicine(int medicine_resistance)
 {
-	auto member_virusList = this->m_virusList.begin();
-	int size = this->m_virusList.size();
+	cout << "Medicine: " << medicine_resistance << endl;
+	list<Viruss*>::iterator ind = m_virusList.begin();
+	int size = m_virusList.size();
+
+	cout << "Size list begin: " << size << endl;
+
+	int l_resis_vr;
+	int sum_resis_vr = 0;
+	list<Viruss*> vrclone;
+
 	for (int i = 0; i < size; i++)
 	{
-		if ((*member_virusList)->ReduceResistance(medicine_resistance) <= 0)
+		l_resis_vr = (*ind)->ReduceResistance(medicine_resistance);
+
+		cout << "Virus(medicine): " << l_resis_vr << endl;
+		
+		if (l_resis_vr <= 0)
 		{
-			(*member_virusList)->DoDie();
-			this->m_virusList.erase(member_virusList++);
+			(*ind)->DoDie();
+			m_virusList.erase(ind++);	
 		}
 		else
 		{
-			list<Viruss*> virusclone = (*member_virusList)->DoClone();
-			this->m_virusList.insert(this->m_virusList.end(), virusclone.begin(), virusclone.end());
-			member_virusList++;
+			vrclone = (*ind++)->DoClone();
+			m_virusList.insert(m_virusList.end(), vrclone.begin(), vrclone.end());
 		}
 	}
 
-	/*list<Viruss*>::iterator ind;
+	cout << "Size final list: " << m_virusList.size() << endl;
+	//check state Patient
 	for (ind = m_virusList.begin(); ind != m_virusList.end(); ind++)
 	{
-		(*ind)->ReduceResistance(medicine_resistance);
-		if ((*ind)->ReduceResistance(medicine_resistance) > 0)
-		{
-			list<Viruss*> vrclone = (*ind)->DoClone();
-			this->m_virusList.insert(this->m_virusList.end(), vrclone.begin(), vrclone.end());
-		}
-		else
-		{
-			(*ind)->DoDie();
-			this->m_virusList.remove((*ind));
-		}
+		sum_resis_vr += (*ind)->m_resistance;
 	}
-	int sum = 0;
-	for (ind = m_virusList.begin(); ind != m_virusList.end(); ind++)
-	{
-		sum += (*ind)->m_resistance;
-	}
-	if (this->m_resistance < sum)
+
+	cout << "Total Virus resistance: " << sum_resis_vr << endl;
+	cout << "Patient reistance: " << this->m_resistance << endl;
+
+	if (this->m_resistance < sum_resis_vr)
 	{
 		DoDie();
-	}*/
-	//int sumresistence = 0;
-	//auto member_virusList = this->m_virusList.begin();	// khai báo con trỏ trỏ đến vị trí đầu list
-	//for (int i = 0; i < this->m_virusList.size(); i++)
-	//{
-	//	sumresistence += (*member_virusList)->GetResistance();
-	//	member_virusList++;
-	//}
-	//if (this->m_resistance < sumresistence)
-	//{
-	//	DoDie();
-	//}
+	}
+	
+	int state = GetState();
+	if (state == 0)
+	{
+		cout << "Patient - DIE" << endl;
+	}
+	else
+	{
+		cout << "Patient - ALIVE" << endl;
+	}
+	
 }
 
 void Patient::DoDie()
 {
 	delete this;
+	this->m_state = 0;
 }
+
+
 
 int Patient::GetState()
 {
