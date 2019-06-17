@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "FluViruss.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <list>
 
 using namespace std;
 
@@ -9,20 +12,26 @@ int red = 0xff0000;
 
 FluViruss::FluViruss()
 {
-	this->m_color = 0x000000;
-	this->m_dna = NULL;
-	this->m_resistance = 0;
-}
-
-FluViruss::FluViruss(int color, char * dna, int resistance) : Viruss(dna, resistance)
-{
 	DoBorn();
 	this->m_resistance = InitResistance();
 }
 
+FluViruss::FluViruss(int color, char * dna, int resistance) : Viruss(dna, resistance)
+{
+	this->m_color = color;
+	this->m_dna = dna;
+	this->m_resistance = resistance;
+}
+
+FluViruss::FluViruss(const FluViruss * fluviruss)
+{
+	this->m_color = fluviruss->m_color;
+	this->m_dna = fluviruss->m_dna;
+	this->m_resistance = fluviruss->m_resistance;
+}
+
 FluViruss::~FluViruss()
 {
-	DoDie();
 	cout << "Destroy Flu Virus" << endl;
 }
 
@@ -54,22 +63,17 @@ void FluViruss::DoBorn()
 	}
 }
 
-Viruss* FluViruss::DoClone()
+list<Viruss*> FluViruss::DoClone()
 {
-	Viruss *vr = new FluViruss();
-
-	vr->m_dna = this->m_dna;
-	vr->m_resistance = this->m_resistance;
-
-	return vr;
+	list<Viruss*> vrclone;
+	Viruss *vr = new FluViruss(this);
+	vrclone.push_back(vr);
+	return vrclone;
 }
 
 void FluViruss::DoDie()
 {
-	if (m_dna != nullptr)
-	{
-		delete[] m_dna;
-	}
+	delete this;
 }
 
 int FluViruss::InitResistance()
@@ -78,11 +82,13 @@ int FluViruss::InitResistance()
 
 	if (this->m_color == bl)
 	{
+		cout << "Blue ";
 		int max = 15;
 		this->m_resistance = rand() % (max - min + 1) + min;
 	}
 	else if (this->m_color == red)
 	{
+		cout << "Red ";
 		int max = 20;
 		this->m_resistance = rand() % (max - min + 1) + min;
 	}

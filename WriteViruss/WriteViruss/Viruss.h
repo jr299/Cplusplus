@@ -1,5 +1,9 @@
 #pragma once
-#include "Patient.h"
+#include <vector>
+#include <list>
+
+using namespace std;
+
 class Viruss
 {
 public:
@@ -16,10 +20,10 @@ public:
 	char *m_dna;
 	int m_resistance;
 
-protected:
+public:
 	virtual void DoBorn() = 0;
-	virtual Viruss* DoClone() = 0;
+	virtual list<Viruss *> DoClone() = 0;
 	virtual void DoDie() = 0;
-	virtual int InitResistance() = 0;
+	virtual int InitResistance() =0;
 };
 

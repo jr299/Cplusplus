@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Viruss.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -26,28 +27,24 @@ Viruss::Viruss(const Viruss * viruss)
 char * Viruss::LoadADNInformation()
 {
 	this->m_dna = NULL;
-	int fsize = 0;
-	FILE *fp;
+	ifstream inFile;
+	inFile.open("ATGX.bin");
 
-	fp = fopen("ATGX.bin", "r");
-	if (fp)
+	if (inFile.is_open())
 	{
-		fseek(fp, 0, SEEK_END);
-		fsize = ftell(fp);
-		rewind(fp);
+		char a[100];
+		inFile >> a;
+		this->m_dna = (char *)a;
 
-		m_dna = new char[fsize + 1];
-		fread(m_dna, 1, fsize, fp);
-		m_dna[fsize] = '\0';
-		fclose(fp);
-
-		cout << "Load success: " << m_dna << endl;
+		cout << "Load success: " << this->m_dna << endl;
 	}
 	else
 	{
 		cout << "Load error!" << endl;
 	}
-	return m_dna;
+	inFile.close();
+
+	return this->m_dna;
 }
 
 int Viruss::ReduceResistance(int medicine_resistance)

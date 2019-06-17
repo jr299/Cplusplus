@@ -10,11 +10,12 @@ private:
 public:
 	DengueViruss();
 	DengueViruss(char protein[4], char *dna, int resistance);
+	DengueViruss(const DengueViruss *denviruss);
 	~DengueViruss();
 	void SetProtein(char *protein);
 	char* GetProtein();
 	void DoBorn();
-	Viruss* DoClone();
+	list<Viruss*> DoClone();
 	void DoDie();
 	int InitResistance();
 };

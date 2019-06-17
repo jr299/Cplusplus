@@ -1,7 +1,8 @@
 #pragma once
 #include "Viruss.h"
-class FluViruss :
-	public Viruss
+#include <list>
+
+class FluViruss : public Viruss
 {
 private:
 	int m_color;
@@ -9,11 +10,12 @@ private:
 public:
 	FluViruss();
 	FluViruss(int color, char *dna, int resistance);
+	FluViruss(const FluViruss *fluviruss);
 	~FluViruss();
 	void SetColor(int color);
 	int GetColor();
 	void DoBorn();
-	Viruss* DoClone();
+	list<Viruss*> DoClone();
 	void DoDie();
 	int InitResistance();
 };

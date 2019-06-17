@@ -1,25 +1,38 @@
 #include "stdafx.h"
 #include "DengueViruss.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <list>
 
 using namespace std;
 
 DengueViruss::DengueViruss()
 {
-	this->m_protein[4] = NULL;
-	this->m_dna = NULL;
-	this->m_resistance = 0;
-}
-
-DengueViruss::DengueViruss(char protein[4], char * dna, int resistance) : Viruss(dna, resistance)
-{
 	DoBorn();
 	this->m_resistance = InitResistance();
 }
 
+DengueViruss::DengueViruss(char protein[4], char * dna, int resistance) : Viruss(dna, resistance)
+{
+	this->m_protein[4] = protein[4];
+	this->m_dna = dna;
+	this->m_resistance = resistance;
+}
+
+DengueViruss::DengueViruss(const DengueViruss * denviruss)
+{
+	this->m_protein[0] = denviruss->m_protein[0];
+	this->m_protein[1] = denviruss->m_protein[1];
+	this->m_protein[2] = denviruss->m_protein[2];
+	this->m_protein[3] = denviruss->m_protein[3];
+	this->m_dna = denviruss->m_dna;
+	this->m_resistance = denviruss->m_resistance;
+}
+
 DengueViruss::~DengueViruss()
 {
-	DoDie();
+	//DoDie();
 	cout << "Destroy Dengue Virus" << endl;
 }
 
@@ -62,26 +75,24 @@ void DengueViruss::DoBorn()
 	}
 }
 
-Viruss * DengueViruss::DoClone()
+list<Viruss*> DengueViruss::DoClone()
 {
-	Viruss *vr = new DengueViruss();
-
-	vr->m_dna = this->m_dna;
-	vr->m_resistance = this->m_resistance;
-
-	return vr;
+	list<Viruss*> vrclone;
+	Viruss *vr1 = new DengueViruss(this);
+	Viruss *vr2 = new DengueViruss(this);
+	vrclone.push_back(vr1);
+	vrclone.push_back(vr2);
+	return vrclone;
 }
 
 void DengueViruss::DoDie()
 {
-	if (m_dna != nullptr)
-	{
-		delete[] m_dna;
-	}
+	delete this;
 }
 
 int DengueViruss::InitResistance()
 {
+	cout << "Protein: " << this->m_protein << endl;
 	if (this->m_protein == "NS3")
 	{
 		int min = 1;
