@@ -74,8 +74,10 @@ list<Viruss*> FluViruss::DoClone()
 
 void FluViruss::DoDie()
 {
-	cout << "==> Flu Virus die" << endl;
+	//delete[] this->m_dna;
+
 	delete this;
+	cout << "==> Flu Virus die" << endl;
 }
 
 int FluViruss::InitResistance()

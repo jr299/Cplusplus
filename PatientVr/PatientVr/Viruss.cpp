@@ -58,7 +58,6 @@ int Viruss::GetResistance()
 
 Viruss::~Viruss()
 {
-	delete[] this->m_dna;
-	m_dna = NULL;
+	//delete[] this->m_dna;
 	cout << "Destroy Virus" << endl;
 }
