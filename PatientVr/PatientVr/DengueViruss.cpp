@@ -31,7 +31,6 @@ DengueViruss::DengueViruss(const DengueViruss * denviruss)
 
 DengueViruss::~DengueViruss()
 {
-	//DoDie();
 	cout << "Destroy Dengue Virus" << endl;
 }
 
@@ -88,8 +87,10 @@ list<Viruss*> DengueViruss::DoClone()
 
 void DengueViruss::DoDie()
 {
-	cout << "==> Dengue Virus die" << endl;
+	//delete[] this->m_dna;
+
 	delete this;
+	cout << "==> Dengue Virus die" << endl;
 }
 
 int DengueViruss::InitResistance()

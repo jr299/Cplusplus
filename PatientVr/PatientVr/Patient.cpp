@@ -26,6 +26,17 @@ Patient::Patient(int resistance, list<Viruss*> viruslist, int state)
 
 Patient::~Patient()
 {
+	int size = this->m_virusList.size();
+	
+	for (int i = 0; i < size; i++)
+	{
+		list<Viruss*>::iterator ind = m_virusList.begin();
+		delete[](*ind)->m_dna;
+
+		(*ind)->DoDie();
+		m_virusList.erase(ind);
+	}
+
 	cout << "Destroy Patient" << endl;
 }
 
@@ -65,29 +76,33 @@ void Patient::TakeMedicine(int medicine_resistance)
 {
 	cout << "Medicine: " << medicine_resistance << endl;
 	list<Viruss*>::iterator ind = m_virusList.begin();
-	int size = m_virusList.size();
-
-	cout << "Size list begin: " << size << endl;
-
 	int l_resis_vr;
 	int sum_resis_vr = 0;
 	list<Viruss*> vrclone;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < this->m_virusList.size(); i++)
 	{
+		cout << "Size List: " << this->m_virusList.size() << endl;
+
 		l_resis_vr = (*ind)->ReduceResistance(medicine_resistance);
 
 		cout << "Virus(medicine): " << l_resis_vr << endl;
 
 		if (l_resis_vr <= 0)
 		{
+			delete[](*ind)->m_dna;
+
 			(*ind)->DoDie();
 			m_virusList.erase(ind++);
+
+			cout << "Size List --: " << this->m_virusList.size() << endl;
 		}
 		else
 		{
 			vrclone = (*ind++)->DoClone();
 			m_virusList.insert(m_virusList.end(), vrclone.begin(), vrclone.end());
+
+			cout << "Size List ++: " << this->m_virusList.size() << endl;
 		}
 	}
 
