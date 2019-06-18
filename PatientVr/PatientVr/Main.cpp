@@ -1,7 +1,3 @@
-// WriteViruss.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
 #include <stdio.h>
 #include <cstdlib>
 #include <ctime>
@@ -16,7 +12,7 @@ int main()
 	int t;
 	while (p->GetState() == 1)
 	{
-		cout<<"Take Medicine (1: YES / OTHER: EXIT): ";
+		cout << "Take Medicine (1: YES / OTHER: EXIT): ";
 		cin >> t;
 		if (t == 1)
 		{
@@ -31,6 +27,5 @@ int main()
 	delete p;
 	p = NULL;
 	system("pause");
-    return 0;
+	return 0;
 }
-

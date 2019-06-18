@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DengueViruss.h"
 #include <iostream>
 #include <cstdlib>
@@ -61,7 +60,7 @@ void DengueViruss::DoBorn()
 		this->m_protein[2] = '3';
 		this->m_protein[3] = '\0';
 	}
-	else if(ran == 1)
+	else if (ran == 1)
 	{
 		this->m_protein[0] = 'N';
 		this->m_protein[1] = 'S';

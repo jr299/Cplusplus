@@ -19,4 +19,3 @@ public:
 	void DoDie();
 	int InitResistance();
 };
-

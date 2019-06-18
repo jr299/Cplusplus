@@ -14,7 +14,7 @@ public:
 	void LoadADNInformation();
 	int ReduceResistance(int medicine_resistance);
 	int GetResistance();
-	
+
 public:
 	char *m_dna;
 	int m_resistance;
@@ -23,6 +23,5 @@ public:
 	virtual void DoBorn() = 0;
 	virtual list<Viruss *> DoClone() = 0;
 	virtual void DoDie() = 0;
-	virtual int InitResistance() =0;
+	virtual int InitResistance() = 0;
 };
-

@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+//import lib
 #include "Patient.h"
 #include <cstdlib>
 #include <ctime>
@@ -6,6 +6,7 @@
 #include "FluViruss.h"
 #include "DengueViruss.h"
 #include <iostream>
+#include <vld.h>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ void Patient::InitResistance()
 
 void Patient::DoStart()
 {
-	
+
 	this->m_state = 1;
 	int numvirus = rand() % 11 + 10;
 
@@ -77,11 +78,11 @@ void Patient::TakeMedicine(int medicine_resistance)
 		l_resis_vr = (*ind)->ReduceResistance(medicine_resistance);
 
 		cout << "Virus(medicine): " << l_resis_vr << endl;
-		
+
 		if (l_resis_vr <= 0)
 		{
 			(*ind)->DoDie();
-			m_virusList.erase(ind++);	
+			m_virusList.erase(ind++);
 		}
 		else
 		{
@@ -104,7 +105,7 @@ void Patient::TakeMedicine(int medicine_resistance)
 	{
 		DoDie();
 	}
-	
+
 	int state = GetState();
 	if (state == 0)
 	{
@@ -114,7 +115,7 @@ void Patient::TakeMedicine(int medicine_resistance)
 	{
 		cout << "Patient - ALIVE" << endl;
 	}
-	
+
 }
 
 void Patient::DoDie()

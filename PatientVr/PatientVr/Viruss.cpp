@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Viruss.h"
 #include <iostream>
 #include <fstream>
@@ -32,9 +31,9 @@ void Viruss::LoadADNInformation()
 
 	if (inFile.is_open())
 	{
-		char *c = new char [100];
+		char *c = new char[100];
 		inFile >> c;
-		this->m_dna = (char *)c;
+		this->m_dna = c;
 
 		cout << "Load ADN success!" << endl;
 	}
@@ -48,7 +47,7 @@ void Viruss::LoadADNInformation()
 int Viruss::ReduceResistance(int medicine_resistance)
 {
 	this->m_resistance = this->m_resistance - medicine_resistance;
-	
+
 	return this->m_resistance;
 }
 
@@ -59,5 +58,7 @@ int Viruss::GetResistance()
 
 Viruss::~Viruss()
 {
+	delete[] this->m_dna;
+	m_dna = NULL;
 	cout << "Destroy Virus" << endl;
 }
