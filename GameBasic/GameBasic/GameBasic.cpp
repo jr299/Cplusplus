@@ -23,7 +23,6 @@ void displayMenu()
 {
 	cout << "==========================TIC TAC TOE==========================" << endl;
 	cout << "+ Wellcome to Tic-tac-toe game! Play with your way!           +" << endl;
-	cout << "+ If you find any problem, please contact duc.hv@gameloft.com +" << endl;
 	cout << "===============================================================" << endl;
 	cout << "SELECT YOUR MODE (1 - PLAY GAME, OTHER - EXIT GAME): ";
 }
