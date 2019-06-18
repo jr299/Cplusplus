@@ -15,39 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Viruss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Patient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FluViruss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DengueViruss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WriteViruss.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Viruss.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Patient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FluViruss.cpp">
@@ -56,5 +27,22 @@
     <ClCompile Include="DengueViruss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Patient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Viruss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FluViruss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DengueViruss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

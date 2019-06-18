@@ -23,4 +23,3 @@ public:
 	void DoDie();
 	int GetState();
 };
-
